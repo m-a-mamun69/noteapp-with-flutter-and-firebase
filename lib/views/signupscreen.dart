@@ -3,23 +3,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:note_app/views/signupscreen.dart';
+import 'package:note_app/views/singinscreen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         centerTitle: true,
-        title: const Text("Login Screen"),
+        title: const Text("SignUp Screen"),
         // actions: [Icon(Icons.more_vert)],
       ),
       body: SingleChildScrollView(
@@ -28,8 +27,34 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Container(
                 alignment: Alignment.center,
-                height: 300.0,
+                height: 250.0,
                 child: Lottie.asset("assets/animation_lnkbeh11.json"),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 30.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'UserName',
+                    enabledBorder: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.person),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 30.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'PhoneNo',
+                    enabledBorder: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.phone),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 30.0),
@@ -60,31 +85,31 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               ElevatedButton(
                 onPressed: () {},
-                child: Text("Login"),
+                child: Text("Sign Up"),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Container(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text("Forgot Password"),
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   height: 10.0,
+              // ),
+              // Container(
+              //   child: Card(
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(10.0),
+              //       child: Text("Forgot Password"),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 10.0,
               ),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => SignUpScreen());
+                  Get.to(() => LoginScreen());
                 },
                 child: Container(
                   child: Card(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Text("Don't have an account! SingUp"),
+                      child: Text("Already have an account SingIn"),
                     ),
                   ),
                 ),
