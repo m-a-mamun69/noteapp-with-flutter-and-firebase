@@ -1,8 +1,13 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable, unused_import
 
+// import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:note_app/services/signupservices.dart';
 import 'package:note_app/views/singinscreen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -13,6 +18,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController userPhoneController = TextEditingController();
+  TextEditingController userEmailController = TextEditingController();
+  TextEditingController userPasswordController = TextEditingController();
+
+  User? currentUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 30.0),
                 child: TextFormField(
+                  controller: userNameController,
                   decoration: InputDecoration(
                     hintText: 'UserName',
                     enabledBorder: OutlineInputBorder(),
@@ -46,6 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 30.0),
                 child: TextFormField(
+                  controller: userPhoneController,
                   decoration: InputDecoration(
                     hintText: 'PhoneNo',
                     enabledBorder: OutlineInputBorder(),
@@ -59,6 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 30.0),
                 child: TextFormField(
+                  controller: userEmailController,
                   decoration: InputDecoration(
                     hintText: 'Email',
                     enabledBorder: OutlineInputBorder(),
@@ -72,6 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 30.0),
                 child: TextFormField(
+                  controller: userPasswordController,
                   decoration: InputDecoration(
                     hintText: 'Password',
                     enabledBorder: OutlineInputBorder(),
@@ -84,7 +100,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 10.0,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  var userName = userNameController.text.trim();
+                  var userPhone = userPhoneController.text.trim();
+                  var userEmail = userEmailController.text.trim();
+                  var userPassword = userPasswordController.text.trim();
+
+                  await FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: userEmail, password: userPassword)
+                      .then((value) => {
+                            signUpUser(
+                              userName,
+                              userPhone,
+                              userEmail,
+                              userPassword,
+                            ),
+                          });
+                },
                 child: Text("Sign Up"),
               ),
               // SizedBox(
