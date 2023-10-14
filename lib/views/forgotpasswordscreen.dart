@@ -1,7 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, unused_local_variable, avoid_print
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:note_app/views/singinscreen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -11,6 +14,8 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  TextEditingController forgotPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +39,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 30.0),
                 child: TextFormField(
+                  controller: forgotPasswordController,
                   decoration: InputDecoration(
                     hintText: 'Email',
                     enabledBorder: OutlineInputBorder(),
@@ -45,7 +51,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 height: 10.0,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  var forgotEmail = forgotPasswordController.text.trim();
+
+                  try {
+                    await FirebaseAuth.instance
+                        .sendPasswordResetEmail(email: forgotEmail)
+                        .then((value) => {
+                              print("Email Sent!"),
+                              Get.off(() => LoginScreen()),
+                            });
+                  } on FirebaseAuthException catch (e) {
+                    print("Email $e");
+                  }
+                },
                 child: Text("Forgot Password"),
               ),
             ],
