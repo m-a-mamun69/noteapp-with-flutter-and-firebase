@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, unnecessary_null_comparison, prefer_const_literals_to_create_immutables, non_constant_identifier_names, avoid_types_as_parameter_names
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, unnecessary_null_comparison, prefer_const_literals_to_create_immutables, non_constant_identifier_names, avoid_types_as_parameter_names, unused_local_variable, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:note_app/views/createnotescreen.dart';
+import 'package:note_app/views/editnotescreen.dart';
 import 'package:note_app/views/singinscreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -58,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, Index) {
                     var note = snapshot.data!.docs[Index]['note'];
                     var noteId = snapshot.data!.docs[Index]['userId'];
+                    var docId = snapshot.data!.docs[Index].id;
                     return Card(
                       child: ListTile(
                         title: Text(
@@ -67,7 +69,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.edit),
+                            GestureDetector(
+                                onTap: () {
+                                  Get.to(
+                                    () => EditNoteScreen(),
+                                    arguments: {
+                                      'note': note,
+                                      'docId': docId,
+                                    },
+                                  );
+                                },
+                                child: Icon(Icons.edit)),
                             SizedBox(
                               width: 10.0,
                             ),
