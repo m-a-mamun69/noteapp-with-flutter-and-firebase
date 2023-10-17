@@ -65,6 +65,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     print("Email $e");
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(15.0),
+                    textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
                 child: Text("Forgot Password"),
               ),
             ],

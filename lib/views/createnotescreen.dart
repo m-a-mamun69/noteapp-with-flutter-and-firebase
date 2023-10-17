@@ -3,6 +3,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'package:note_app/views/homescreen.dart';
 
 class CreateNoteScreen extends StatefulWidget {
   const CreateNoteScreen({super.key});
@@ -48,12 +51,19 @@ class _CreateNoteScreenState extends State<CreateNoteScreen> {
                         "createdAt": DateTime.now(),
                         "note": note,
                         "userId": userId?.uid,
-                      });
+                      }).then((value) => {
+                                Get.offAll(() => HomeScreen()),
+                              });
                     } catch (e) {
                       print("Error $e");
                     }
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(15.0),
+                    textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
                 child: Text("Add Note"),
               )
             ],

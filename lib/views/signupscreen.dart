@@ -118,6 +118,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           });
                 },
+                style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(15.0),
+                    textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
                 child: Text("Sign Up"),
               ),
               // SizedBox(

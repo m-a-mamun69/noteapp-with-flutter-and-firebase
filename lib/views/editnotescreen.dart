@@ -47,6 +47,11 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                           Get.offAll(() => HomeScreen()),
                         });
               },
+              style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(15.0),
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                  )),
               child: Text("Update"))
         ]),
       ),

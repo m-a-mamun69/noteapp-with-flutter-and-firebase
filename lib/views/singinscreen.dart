@@ -85,6 +85,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     print("Error $e");
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(15.0),
+                    textStyle: TextStyle(
+                      fontSize: 18,
+                    )),
                 child: Text("Login"),
               ),
               SizedBox(
