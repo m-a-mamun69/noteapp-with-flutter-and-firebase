@@ -83,7 +83,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             SizedBox(
                               width: 10.0,
                             ),
-                            Icon(Icons.delete),
+                            GestureDetector(
+                              onTap: () async {
+                                await FirebaseFirestore.instance
+                                    .collection("notes")
+                                    .doc(docId)
+                                    .delete();
+                              },
+                              child: Icon(Icons.delete),
+                            ),
                           ],
                         ),
                       ),
